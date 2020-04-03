@@ -1,10 +1,13 @@
 package api.entidades;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -24,8 +27,12 @@ public class Editora {
 	private String cidade;
 
 	private int anoFundacao;
-	
-	public Editora() {}
+
+	@OneToMany(mappedBy = "editora")
+	private List<Livro> livros;
+
+	public Editora() {
+	}
 
 	public Editora(String nome, String cidade, int anoFundacao) {
 		super();
@@ -39,7 +46,5 @@ public class Editora {
 		return "Editora [editoraID=" + editoraID + ", nome=" + nome + ", cidade=" + cidade + ", anoFundacao="
 				+ anoFundacao + "]";
 	}
-	
-	
 
 }
