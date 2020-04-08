@@ -17,5 +17,8 @@ public class EditoraService {
         System.out.println("Editora " + editora.getNome() + " gravada.");
     }
 
+    public Editora buscarPeloNome(String nome) {
+    	return this.repo.findByNome(nome);
+    }
 
 }

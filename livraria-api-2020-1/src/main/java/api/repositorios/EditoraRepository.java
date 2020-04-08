@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import api.entidades.Editora;
 
 public interface EditoraRepository extends JpaRepository<Editora, Long> {
+	
+	public Editora findByNome(String nome);
 
 }

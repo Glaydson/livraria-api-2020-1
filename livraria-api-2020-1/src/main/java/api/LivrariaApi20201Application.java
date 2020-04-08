@@ -15,7 +15,7 @@ import api.entidades.Livro;
 import api.servicos.EditoraService;
 import api.servicos.LivroService;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class LivrariaApi20201Application implements CommandLineRunner {
 
 	@Autowired
@@ -30,7 +30,7 @@ public class LivrariaApi20201Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		
+
 		System.out.println("GRAVANDO UM LIVRO E UMA EDITORA");
 		Livro livro = new Livro("Java Como Programar", LocalDate.of(2017, 8, 20), 250, new BigDecimal("15.00"));
 		this.servicoLivros.salvar(livro);
@@ -144,7 +144,6 @@ public class LivrariaApi20201Application implements CommandLineRunner {
 		System.out.println("BUSCANDO LIVROS PELO TÍTULO CONTENDO EM ORDEM CRESCENTE");
 		this.servicoLivros.buscarLivrosPeloTituloContendoOrdemCrescente("de").forEach(System.out::println);
 		System.out.println();
-
 
 	}
 

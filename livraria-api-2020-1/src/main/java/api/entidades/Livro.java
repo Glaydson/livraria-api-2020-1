@@ -56,6 +56,14 @@ public class Livro {
 		this.numeroPaginas = numeroPaginas;
 		this.preco = preco;
 	}
+	
+	public Livro(String titulo, LocalDate dataPublicacao, int numeroPaginas, BigDecimal preco, Editora editora) {
+		this.titulo = titulo;
+		this.dataPublicacao = dataPublicacao;
+		this.numeroPaginas = numeroPaginas;
+		this.preco = preco;
+		this.editora = editora;
+	}
 
 	@Override
 	public String toString() {

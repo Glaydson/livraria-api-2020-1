@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +29,7 @@ public class Editora {
 
 	private int anoFundacao;
 
-	@OneToMany(mappedBy = "editora")
+	@OneToMany(mappedBy = "editora", fetch=FetchType.EAGER)
 	private List<Livro> livros;
 
 	public Editora() {
