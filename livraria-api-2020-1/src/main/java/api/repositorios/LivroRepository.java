@@ -52,9 +52,18 @@ public interface LivroRepository extends JpaRepository<Livro, Long> {
 		public List<Livro> findByTituloContainingOrderByTituloDesc(String titulo);
 		
 		// CONSULTAS ENVOLVENDO OUTRA TABELA
+		// Livros de um autor
 		public List<Livro> findByAutoresNome(String nome);
 		
+		// Livros de todos os autores que forem de um determinado país
 		public List<Livro> findByAutoresPais(String pais);
+		
+		// Todos os livros de uma editora
+		public List<Livro> findByEditoraNome(String nomeEditora);
+		
+		// Livros de um determinado autor e editora
+		public List<Livro> findByAutoresNomeAndEditoraNome(String nomeAutor, String nomeEditora);
+		
 
 		
 }

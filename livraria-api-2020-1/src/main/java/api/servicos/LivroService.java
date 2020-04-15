@@ -108,5 +108,10 @@ public class LivroService {
 	public List<Livro> buscarLivrosPeloTituloContendoOrdemCrescente(String titulo) {
 		return this.repoLivros.findByTituloContainingOrderByTituloAsc(titulo);
 	}
+	
+	// Todos os livros de uma editora
+	public List<Livro> buscarPelaEditora(String nomeEditora) {
+		return this.repoLivros.findByEditoraNome(nomeEditora);
+	}
 
 }

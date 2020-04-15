@@ -1,5 +1,7 @@
 package api.servicos;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,22 @@ public class EditoraService {
 
     public Editora buscarPeloNome(String nome) {
     	return this.repo.findByNome(nome);
+    }
+    
+    public List<Editora> buscarTodos() {
+    	return this.repo.findAll();
+    }
+    
+    public void remover(Editora editora) {
+    	this.repo.delete(editora);
+    }
+    
+    public void remover(Long idEditora) {
+    	this.repo.deleteById(idEditora);
+    }
+    
+    public List<Editora> buscarPelaSede(String cidade) {
+    	return this.repo.findByCidade(cidade);
     }
 
 }
