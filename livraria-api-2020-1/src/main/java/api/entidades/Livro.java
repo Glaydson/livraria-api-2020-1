@@ -15,6 +15,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 @Data
@@ -31,6 +34,7 @@ public class Livro {
 	private String titulo;
 
 	@Column(name = "DATA_PUBLICACAO")
+	@JsonFormat(pattern="dd-MM-yyyy")
 	private LocalDate dataPublicacao;
 
 	@Column(name = "NUMERO_PAGINAS")
@@ -41,10 +45,12 @@ public class Livro {
 
 	@ManyToOne()
 	@JoinColumn(name = "EDITORA_ID")
+	@JsonIgnoreProperties("livros")
 	private Editora editora;
 
 	@ManyToMany()
 	@JoinTable(name = "TB_AUTORES_LIVROS")
+	@JsonIgnoreProperties("livros")
 	private List<Autor> autores;
 
 	public Livro() {

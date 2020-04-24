@@ -3,29 +3,36 @@ package api.servicos;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import api.entidades.Livro;
+import api.excecoes.LivroNaoEncontradoException;
 import api.repositorios.LivroRepository;
 
 @Service
 public class LivroService {
-	
+
 	@Autowired
-    private LivroRepository repoLivros;
+	private LivroRepository repoLivros;
 
-    public void salvar(Livro livro) {
-        this.repoLivros.save(livro);
-        System.out.println("Livro " + livro.getTitulo() + " gravado.");
-    }
+	public Livro salvar(Livro livro) {
 
-    public Livro buscarPeloID(long idLivro) {
-        return this.repoLivros.findById(idLivro).get();
-    }
+		System.out.println("Livro " + livro.getTitulo() + " gravado.");
+		return this.repoLivros.save(livro);
+	}
 
-    public List<Livro> buscarPelosIDs(ArrayList<Long> idsLivros) {
+	public Livro buscarPeloID(long idLivro) {
+		Optional<Livro> livro = this.repoLivros.findById(idLivro);
+		if (!livro.isPresent())
+			throw new LivroNaoEncontradoException(idLivro);
+		return livro.get();
+
+	}
+
+	public List<Livro> buscarPelosIDs(ArrayList<Long> idsLivros) {
 		return this.repoLivros.findAllById(idsLivros);
 	}
 
@@ -108,7 +115,7 @@ public class LivroService {
 	public List<Livro> buscarLivrosPeloTituloContendoOrdemCrescente(String titulo) {
 		return this.repoLivros.findByTituloContainingOrderByTituloAsc(titulo);
 	}
-	
+
 	// Todos os livros de uma editora
 	public List<Livro> buscarPelaEditora(String nomeEditora) {
 		return this.repoLivros.findByEditoraNome(nomeEditora);
