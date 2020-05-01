@@ -14,6 +14,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -30,7 +33,10 @@ public class Livro {
 	@Column(name = "LIVRO_ID")
 	private Long livroID;
 
-	@Column(name = "TITULO")
+	@Column(name = "TITULO", nullable = false)
+	@NotNull
+	@Size(min=2, message="O título precisa ter pelo menos 2 caracteres")
+	@Size(max=50, message="O título só pode ter no máximo 50 caracteres")
 	private String titulo;
 
 	@Column(name = "DATA_PUBLICACAO")
@@ -38,6 +44,7 @@ public class Livro {
 	private LocalDate dataPublicacao;
 
 	@Column(name = "NUMERO_PAGINAS")
+	@Min(value = 50, message="Um livro deve ter pelo menos 50 páginas")
 	private int numeroPaginas;
 
 	@Column(name = "PRECO")
