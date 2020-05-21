@@ -2,6 +2,7 @@ package api.servicos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,9 @@ public class AutorService {
 
 	/* MÉTODOS CRUD */
 
-	public void salvar(Autor autor) {
-		this.repo.save(autor);
+	public Autor salvar(Autor autor) {
 		System.out.println("AUTOR " + autor.getAutorID() + " SALVO!");
+		return this.repo.save(autor);
 	}
 
 	public List<Autor> buscarTodos() {
@@ -29,7 +30,10 @@ public class AutorService {
 
 	public Autor buscarPeloID(Long idAutor) {
 		System.out.println("OBTENDO O AUTOR COM O ID = " + idAutor);
-		return this.repo.findById(idAutor).get();
+		Optional<Autor> autor = this.repo.findById(idAutor);
+		if (!autor.isPresent())
+			throw new api.excecoes.AutorNaoEncontradoException(idAutor);
+		return autor.get();
 	}
 
 	public List<Autor> buscarPelosIDs(ArrayList<Long> idsAutores) {
@@ -43,8 +47,13 @@ public class AutorService {
 	}
 
 	public void remover(Autor autor) {
-		this.repo.delete(autor);
-		System.out.println("REMOVIDO O AUTOR COM ID = " + autor.getAutorID());
+		Autor autorBD = this.buscarPeloID(autor.getAutorID());
+		if (autor.getLivros().isEmpty()) {
+			this.repo.delete(autor);
+			System.out.printf("Autor %s removido!%n", autor.getNome());
+		} else {
+			throw new api.excecoes.AutorComLivrosException(autor.getNome());
+		}
 	}
 
 }

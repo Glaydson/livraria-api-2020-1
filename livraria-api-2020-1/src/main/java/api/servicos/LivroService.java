@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import api.entidades.Livro;
 import api.excecoes.LivroNaoEncontradoException;
+import api.excecoes.LivroSemAutorException;
 import api.repositorios.LivroRepository;
 
 @Service
@@ -20,8 +21,13 @@ public class LivroService {
 
 	public Livro salvar(Livro livro) {
 
-		System.out.println("Livro " + livro.getTitulo() + " gravado.");
-		return this.repoLivros.save(livro);
+		// Verifica se o livro tem autores
+		if ((livro.getAutores() != null) && (livro.getAutores().size() != 0)) {
+			System.out.printf("Livro %s gravado!%n", livro.getTitulo());
+			return this.repoLivros.save(livro);
+		} else {
+			throw new LivroSemAutorException(livro.getTitulo());
+		}
 	}
 
 	public Livro buscarPeloID(long idLivro) {

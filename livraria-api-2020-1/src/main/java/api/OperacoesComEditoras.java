@@ -20,7 +20,7 @@ import api.servicos.ClienteService;
 import api.servicos.EditoraService;
 import api.servicos.LivroService;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class OperacoesComEditoras implements CommandLineRunner {
 
 	@Autowired
