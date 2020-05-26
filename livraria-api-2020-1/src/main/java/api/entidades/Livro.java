@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,7 +42,7 @@ public class Livro {
 	private String titulo;
 
 	@Column(name = "DATA_PUBLICACAO")
-	@JsonFormat(pattern="dd-MM-yyyy")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate dataPublicacao;
 
 	@Column(name = "NUMERO_PAGINAS")
@@ -56,7 +57,7 @@ public class Livro {
 	@JsonIgnoreProperties("livros")
 	private Editora editora;
 
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	@JoinTable(name = "TB_AUTORES_LIVROS")
 	@JsonIgnoreProperties("livros")
 	private List<Autor> autores;
@@ -82,7 +83,7 @@ public class Livro {
 	@Override
 	public String toString() {
 		return "Livro [livroId=" + livroID + ", título=" + titulo + ", data de publicação=" + dataPublicacao
-				+ ", número de Páginas=" + numeroPaginas + ", preço=" + preco + "]";
+				+ ", número de Páginas=" + numeroPaginas + ", preço=" + preco + " , autores=" + autores + ", editora=" + editora + "]";
 	}
 
 }

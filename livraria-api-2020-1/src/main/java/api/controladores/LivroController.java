@@ -60,6 +60,9 @@ public class LivroController {
 
 	@PutMapping("/atualiza/{id}")
 	public ResponseEntity<Object> atualizaLivro(@RequestBody Livro livro, @PathVariable long id) {
+		System.out.println("ATUALIZAR NO BACKEND");
+		System.out.println("ID = " + id);
+		System.out.println("LIVRO " + livro);
 		try {
 			Livro livroBD = servicoLivros.buscarPeloID(id);
 		} catch (LivroNaoEncontradoException lnee) {

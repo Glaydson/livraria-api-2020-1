@@ -43,6 +43,7 @@ public class LivroService {
 	}
 
 	public List<Livro> buscarTodos() {
+		List<Livro> todos = this.repoLivros.findAll();
 		return this.repoLivros.findAll();
 	}
 
@@ -50,6 +51,7 @@ public class LivroService {
 		// Se o livro não for encontrado, será lançada exceção para a interface
 		Livro livroBD = this.buscarPeloID(idLivro);
 		this.repoLivros.deleteById(idLivro);
+		System.out.println("Livro " + livroBD.getTitulo() + " removido");
 	}
 
 	public void remover(Livro livro) {
