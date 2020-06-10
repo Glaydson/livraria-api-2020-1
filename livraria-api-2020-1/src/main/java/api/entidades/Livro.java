@@ -50,6 +50,7 @@ public class Livro {
 	private int numeroPaginas;
 
 	@Column(name = "PRECO")
+	@JsonFormat(shape = JsonFormat.Shape.NUMBER_FLOAT)
 	private BigDecimal preco;
 
 	@ManyToOne()
@@ -57,7 +58,7 @@ public class Livro {
 	@JsonIgnoreProperties("livros")
 	private Editora editora;
 
-	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name = "TB_AUTORES_LIVROS")
 	@JsonIgnoreProperties("livros")
 	private List<Autor> autores;

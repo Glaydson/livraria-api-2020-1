@@ -44,6 +44,7 @@ public class EditoraService {
 	}
 
 	public List<Editora> buscarTodos() {
+		System.out.println("OBTENDO A LISTA COMPLETA DE EDITORAS");
 		return this.repo.findAll();
 	}
 

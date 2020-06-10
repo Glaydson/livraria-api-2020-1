@@ -52,6 +52,7 @@ public class LivroController {
 
 	@PostMapping("/novo")
 	public ResponseEntity<Object> salvar(@Valid @RequestBody Livro livro) {
+		System.out.println(livro);;
 		Livro livroSalvo = servicoLivros.salvar(livro);
 		URI local = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(livroSalvo.getLivroID()).toUri();

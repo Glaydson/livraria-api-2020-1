@@ -20,20 +20,28 @@ public class LivroService {
 	private LivroRepository repoLivros;
 
 	public Livro salvar(Livro livro) {
-
+		Livro livroSalvo = null;
 		// Verifica se o livro tem autores
 		if ((livro.getAutores() != null) && (livro.getAutores().size() != 0)) {
-			System.out.printf("Livro %s gravado!%n", livro.getTitulo());
-			return this.repoLivros.save(livro);
+			try {
+				
+				livroSalvo = this.repoLivros.save(livro);
+				System.out.printf("Livro %s gravado!%n", livro.getTitulo());
+				return livroSalvo;
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
 		} else {
 			throw new LivroSemAutorException(livro.getTitulo());
 		}
+		return livroSalvo;
 	}
 
 	public Livro buscarPeloID(long idLivro) {
 		Optional<Livro> livro = this.repoLivros.findById(idLivro);
 		if (!livro.isPresent())
 			throw new LivroNaoEncontradoException(idLivro);
+		System.out.println(livro.get());
 		return livro.get();
 
 	}
@@ -44,6 +52,7 @@ public class LivroService {
 
 	public List<Livro> buscarTodos() {
 		List<Livro> todos = this.repoLivros.findAll();
+		System.out.println("OBTENDO TODOS OS LIVROS");
 		return this.repoLivros.findAll();
 	}
 
